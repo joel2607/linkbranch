@@ -1,0 +1,33 @@
+.topbar{
+    display:flex;
+    height: 100px;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    background-color: #48A9A6;
+
+}
+
+.signinoutbtn{
+    height: 30px;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 5%;
+}
+
+.form{
+    background-color: #C1666B;
+    height:auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 5%;
+    gap: 10px;
+}
+
+.body{
+    background-color: #E4DFDA;
+}
