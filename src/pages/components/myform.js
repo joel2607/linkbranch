@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Axios from 'axios';
 
 const route = Axios.create({
-  baseURL: "/api/"
+  baseURL: "http://localhost:3000/api"
 });
 
 export default function Myform({session}){
@@ -11,7 +11,8 @@ export default function Myform({session}){
   const [username, setUsername] = useState("");
 
   function addUsername(email, userName){ //We can use email to 
-    route.post("/userdata",{useremail:email, username: userName}).catch((err) => console.log(err));
+    route.post("/userdata",{useremail:email, username: userName.toLowerCase()}).then((res) => console.log(res))
+    .catch((err) => console.log(err));
   }
   
   return (
