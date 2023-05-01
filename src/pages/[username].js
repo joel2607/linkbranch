@@ -15,7 +15,7 @@ export async function getServerSideProps(context) {
         const links = res.data.links.slice();
     
         return {
-          props: { links },
+          props: { links, userName},
         };
     } catch (err) {
         console.log(err);
@@ -25,13 +25,24 @@ export async function getServerSideProps(context) {
     }
 }
 
-function Links({links}) {
+function Links({links, userName}) {
     return (
        <div>
+        <div className="linkcontainer" style = {{
+            fontSize: 25,
+            fontWeight: 'bold',
+            ':hover': { backgroundColor: 'darkblue' }
+        }}>
+                {userName}'s Links
+        </div>
+        <br/><br/>
         {links.map(
             (linkdata, index) => {
                 return (
-                    <LinkContainer data = {linkdata} key = {index}></LinkContainer>
+                    <div key = {index}>
+                        <LinkContainer data = {linkdata} ></LinkContainer>
+                        <br/>
+                    </div>
                 );
             })
         }

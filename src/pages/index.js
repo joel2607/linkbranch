@@ -21,10 +21,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Topbar session={session}></Topbar>
-
       <Myform session = {session}></Myform>
 
-      
+    </>
       
   );
   
