@@ -6,3 +6,5 @@ A budget version of [LinkTree](https://linktr.ee/).
 
 - Next.js
 - Google Cloud Firestore Database 
+- NextAuth
+- GoogleProvider
