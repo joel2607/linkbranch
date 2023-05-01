@@ -2,12 +2,9 @@ import Head from 'next/head'
 
 import {useSession } from 'next-auth/react';
 
-import Myform from './components/myform';
+import Userform from './components/UserForm';
 import Topbar from './components/topbar';
 import LinkAdd from './components/linkAdd';
-
-
-
 
 export default function Home() {
 
@@ -23,7 +20,7 @@ export default function Home() {
       </Head>
       <Topbar session={session}></Topbar>
       <LinkAdd session = {session}></LinkAdd>
-      <Myform session = {session}></Myform>
+      <Userform session = {session}></Userform>
       
     </>
       

@@ -11,7 +11,7 @@ export async function getServerSideProps(context) {
     const usernameObj = {username:userName,}
     
     try {
-        const res = await route.post('/links', usernameObj);
+        const res = await route.post('/showlinks', usernameObj);
         const links = res.data.links.slice();
     
         return {
