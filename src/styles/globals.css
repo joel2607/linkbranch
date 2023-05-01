@@ -28,6 +28,25 @@
     gap: 10px;
 }
 
-.body{
-    background-color: #E4DFDA;
+.linkcontainer{
+    background-color: #C1666B;
+    font-size: 30px;
+    text-decoration: "none";
+    height:auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 5%;
+    gap: 10px;
 }
+
+a {
+    text-decoration: none;
+}
+
+.linkcontainer:hover{
+    background-color: #48A9A6;
+}
+
