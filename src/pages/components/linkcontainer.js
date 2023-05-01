@@ -5,6 +5,5 @@ export default function LinkContainer({data}){
                 {data.name}
             </div>
         </a>
-        
     )
 }

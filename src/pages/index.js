@@ -4,6 +4,7 @@ import {useSession } from 'next-auth/react';
 
 import Myform from './components/myform';
 import Topbar from './components/topbar';
+import LinkAdd from './components/linkAdd';
 
 
 
@@ -21,8 +22,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Topbar session={session}></Topbar>
+      <LinkAdd session = {session}></LinkAdd>
       <Myform session = {session}></Myform>
-
+      
     </>
       
   );

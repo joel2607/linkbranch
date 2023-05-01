@@ -28,10 +28,10 @@ export async function getServerSideProps(context) {
 function Links({links, userName}) {
     return (
        <div>
-        <div className="linkcontainer" style = {{
+        <div style = {{
             fontSize: 25,
             fontWeight: 'bold',
-            ':hover': { backgroundColor: 'darkblue' }
+            textAlign: 'center'
         }}>
                 {userName}'s Links
         </div>

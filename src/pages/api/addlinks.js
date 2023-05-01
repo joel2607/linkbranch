@@ -3,7 +3,7 @@ import admin from "lib/firestoreAdmin.js";
 export default async function handler(req, res) {
     
     if(req.method == "POST"){
-        // Get all links
+        // adds a link given a request of format {email: email, name: name, link: link}
         
         const db = admin.firestore();
 
@@ -11,14 +11,19 @@ export default async function handler(req, res) {
         
         const usersRef = db.collection("users");
         
-        const querySnapshot = await usersRef.where('username', '==', req.body.username).get();
+        const querySnapshot = await usersRef.where('email', '==', req.body.useremail).get();
         if (querySnapshot.empty) {
-            console.log("username does not exist");
-            res.status(404).json({ links: [] });;
+            console.log("user does not exist");
+            res.status(404).json({ links: [] });
             return;
         } else {
+            
             const linksRef = querySnapshot.docs[0].ref.collection("links");
             const links = await linksRef.get();
+            await linksRef.add({
+                name: req.body.linkname,
+                link: req.body.link
+            });
             links.forEach(doc => {
                 myLinks.push(doc.data());
             });

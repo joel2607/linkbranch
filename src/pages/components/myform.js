@@ -10,9 +10,14 @@ export default function Myform({session}){
 
   const [username, setUsername] = useState("");
 
-  function addUsername(email, userName){ //We can use email to 
-    route.post("/userdata",{useremail:email, username: userName.toLowerCase()}).then((res) => console.log(res))
-    .catch((err) => console.log(err));
+  async function addUsername(email, userName){ //We can use email to 
+
+    try {
+      const res = await route.post("/userdata",{useremail:email, username: userName.toLowerCase()});
+      console.log(res.data)
+    } catch (err) {
+        console.log(err);
+    }
   }
   
   return (
@@ -24,7 +29,7 @@ export default function Myform({session}){
             </div>
             
             <div>
-              <input type = "submit" onClick={() => addUsername(session.data.user.email, username)}></input>
+              <input type = "submit" value = "Set Username" onClick={() => addUsername(session.data.user.email, username)}></input>
             </div>
           </form>
         </div>
