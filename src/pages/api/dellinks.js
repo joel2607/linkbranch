@@ -19,20 +19,20 @@ export default async function handler(req, res) {
         }
             
         const linksRef = querySnapshot.docs[0].ref.collection("links");
-        const links = await linksRef.get();
         const linksQuerySnapshot = await linksRef.where('name', '==', req.body.name).get();
-        await querySnapshot.docs[0].ref.delete();
-
         if (linksQuerySnapshot.empty) {
             console.log("link does not exist");
             res.status(404).json({ links: [] });
             return;
         }
+        await linksQuerySnapshot.docs[0].ref.delete();
+        const links = await linksRef.get();
+
 
         links.forEach(doc => {
             myLinks.push(doc.data());
         });
-        
+
         res.status(200).json({ links: myLinks });
 
         
