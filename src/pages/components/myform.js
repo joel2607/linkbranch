@@ -10,8 +10,8 @@ export default function Myform({session}){
 
   const [username, setUsername] = useState("");
 
-  function addUsername(userName){
-    route.post("/userdata",{username: userName}).catch((err) => console.log(err));
+  function addUsername(email, userName){ //We can use email to 
+    route.post("/userdata",{useremail:email, username: userName}).catch((err) => console.log(err));
   }
   
   return (
@@ -23,7 +23,7 @@ export default function Myform({session}){
             </div>
             
             <div>
-              <input type = "submit" onClick={() => addUsername(username)}></input>
+              <input type = "submit" onClick={() => addUsername(session.data.user.email, username)}></input>
             </div>
           </form>
         </div>

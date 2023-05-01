@@ -11,7 +11,6 @@ import Topbar from './components/topbar';
 export default function Home() {
 
   const session = useSession();
-  console.log(session);
   return ( 
 
     <>
