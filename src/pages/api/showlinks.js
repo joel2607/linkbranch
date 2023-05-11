@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         const querySnapshot = await usersRef.where('username', '==', req.body.username).get();
         if (querySnapshot.empty) {
             console.log("username does not exist");
-            res.status(404).json({ links: [] });;
+            res.status(404).json({ links: [], message: "Username does not exist"});;
             return;
         } else {
             const linksRef = querySnapshot.docs[0].ref.collection("links");

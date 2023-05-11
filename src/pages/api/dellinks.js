@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         const querySnapshot = await usersRef.where('email', '==', req.body.useremail).get();
         if (querySnapshot.empty) {
             console.log("user does not exist");
-            res.status(404).json({ links: [] });
+            res.status(404).json({ links: [], message: "User does not exist"});
             return;
         }
             
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         const linksQuerySnapshot = await linksRef.where('name', '==', req.body.name).get();
         if (linksQuerySnapshot.empty) {
             console.log("link does not exist");
-            res.status(404).json({ links: [] });
+            res.status(404).json({ links: [], message : "Link does not exist" });
             return;
         }
         await linksQuerySnapshot.docs[0].ref.delete();
