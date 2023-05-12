@@ -8,14 +8,17 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import Avatar from '@mui/material/Avatar';
 
 export default function Topbar({session}){
-    
 
-  if(!session.data){
-  
+  // function createAccount(username){
+
+
+  // }
+
     return (
-      <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -30,61 +33,24 @@ export default function Topbar({session}){
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'monospace', fontWeight: 700, }}>
             LinkBranch
           </Typography>
-          <Button color="inherit" onClick={() => signIn('google')}>Login</Button>
+
+          
+            <Avatar 
+              src = {(session.data)?session.data.user.image:""} 
+              height = "50" width = "50"
+              sx={{
+              display: session.data?"block":"none",
+              mr: 2
+              }}
+              alt='User Profile Picture'></Avatar>
+            
+          <Button onClick={() => signOut()} sx = {{display: session.data?"block":"none"}}>Sign out</Button>
+
+          <Button color="inherit" onClick={() => signIn('google')} sx = {{display: (!session.data)?"block":"none"}} >Login</Button>
         </Toolbar>
       </AppBar>
     </Box>
-        
 
     );
-  }
-
-  else{
-
-    return (
-    <>
-    <div className='topbar'>
-        <div style={{
-            position: "relative",
-            flexGrow:6,
-            justifyContent: 'center',
-            alignContent: 'center'
-            }}>
-            Link Branch
-        </div>
-
-        <div style={{
-        position: "relative",
-        flexGrow: 1,
-        width: "fit-content",
-        justifyContent: 'center',
-        alignItems: 'center'
-        }}>
-        <Image 
-            src = {session.data.user.image} 
-            height = "50" width = "50"
-            style={{
-            borderRadius :"50%",
-            }}
-            alt='User Profile Picture'></Image>
-        </div>
-
-        <div style={{
-        position: "relative",
-        flexGrow:1,
-        justifyContent: 'center',
-        alignContent: 'center'
-        }}>
-        
-        Signed in as {session.data.user.name}
-        </div>
-
-        <div style={{flexGrow:1,}}>
-            <button onClick={() => signOut()} className="signinoutbtn">Sign out</button>
-        </div>
-
-    </div>
-    </>
-    );
-  }
+  // }
 }
