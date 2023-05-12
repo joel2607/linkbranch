@@ -1,19 +1,41 @@
 import Image from 'next/image'
 import { signIn, signOut} from 'next-auth/react';
 
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+
 export default function Topbar({session}){
     
 
   if(!session.data){
   
     return (
-      <>
+      <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <AccountTreeIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'monospace', fontWeight: 700, }}>
+            LinkBranch
+          </Typography>
+          <Button color="inherit" onClick={() => signIn('google')}>Login</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
         
-        <div className='topbar'>
-          <button onClick={() => signIn('google')} className="signinoutbtn">Sign in with Google</button>
-        </div>
-        
-      </>
+
     );
   }
 

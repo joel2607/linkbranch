@@ -1,4 +1,4 @@
-.topbar{
+/* .topbar{
     display:flex;
     height: 100px;
     flex-flow: row;
@@ -51,3 +51,11 @@ a {
     background-color: #48A9A6;
 }
 
+
+
+.signin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ */
