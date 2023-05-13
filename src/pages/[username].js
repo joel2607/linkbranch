@@ -1,6 +1,8 @@
 
 import Axios from 'axios';
 import LinkContainer from './components/linkcontainer';
+import Topbar from './components/Topbar';
+import { useSession } from 'next-auth/react';
 
 const route = Axios.create({
     baseURL: "http://localhost:3000/api"
@@ -26,8 +28,10 @@ export async function getServerSideProps(context) {
 }
 
 function Links({links, userName}) {
+    const session = useSession();
     return (
-       <div>
+        <div>
+           <Topbar session = {session}></Topbar>
         <div style = {{
             fontSize: 25,
             fontWeight: 'bold',
