@@ -56,18 +56,10 @@ export default function Home() {
   }, [session])
 
   useEffect(() => {
-    console.log("state")
-    console.log(currentUser)
     if(!currentUser || currentUser.username) return;
 
     route.post("/userdata",{...currentUser, username: generateUsername()})
-    .then((res) => {
-      console.log(res.body);
-      
-    })
-    .catch((err) => console.log(err));
-
-    console.log("username added")
+    .then().catch((err) => console.log(err));
   }, [currentUser]);
 
   const [alert, setAlert] = useState("");

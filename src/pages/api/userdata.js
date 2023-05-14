@@ -30,7 +30,6 @@ export default async function handler(req, res) {
               { merge: true });
             }catch(err){console.log(err);}
         }
-        console.log("added username" + req.body.username)
         res.status(200).json({message: "added username" + req.body.username});
         
     }
