@@ -8,3 +8,4 @@ A budget version of [LinkTree](https://linktr.ee/).
 - Google Cloud Firestore Database 
 - NextAuth
 - GoogleProvider
+- Material UI
