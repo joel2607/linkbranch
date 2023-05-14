@@ -42,12 +42,25 @@ export default function Home() {
   useEffect(() => {
     if(!session.data) return;
 
-    let _currUser;
+    let _currentUser;
     route.get("/userdata")
     .then((res)=>{
         const users = res.data.users.slice();
-        _currUser = users.filter((user) => user.email == session.data.user.email)[0];
-        setCurrentUser(_currUser);
+
+        _currentUser = users.find((user) => user.email == session.data.user.email);
+        // Get current user object by matching emails
+
+        console.log(_currentUser);
+
+        if(_currentUser.username) return;
+        // Check if current user object already has a username
+        
+        let randomUsername = generateUsername();
+        while(users.find((user) => user.username && user.username == randomUsername)) randomUsername = generateUsername();
+        // If username exists in database, generate new one
+        
+        setCurrentUser({..._currentUser, username: randomUsername});
+        // Hook it up with a username
     })
     .catch((err)=> console.log(err));
 
@@ -56,9 +69,10 @@ export default function Home() {
   }, [session])
 
   useEffect(() => {
-    if(!currentUser || currentUser.username) return;
+    if(!currentUser) return;
+    // Check if user is logged in
 
-    route.post("/userdata",{...currentUser, username: generateUsername()})
+    route.post("/userdata",{...currentUser})
     .then().catch((err) => console.log(err));
   }, [currentUser]);
 
