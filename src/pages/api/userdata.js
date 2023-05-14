@@ -11,30 +11,26 @@ export default async function handler(req, res) {
         users.forEach(userDoc => {
            usersList.push(userDoc.data());
         });
-        console.log(usersList);
         res.status(200).json({users: usersList});
     }
     
     if(req.method == "POST"){
         // Add username to users database
-        
-        const usernameQuerySnapshot = await usersRef.where('username', '==', req.body.username).get();
-        if (!usernameQuerySnapshot.empty) {
-            console.log("username already exists");
-            res.status(422).json({message: "username already exists"});
-            return;
-        }
-        const querySnapshot = await usersRef.where('email', '==', req.body.useremail).get();
+
+        const querySnapshot = await usersRef.where('email', '==', req.body.email).get();
         if (querySnapshot.empty) {
             console.log("email does not exist");
             res.status(404).json({message: "Not found"});
             return;
         } else {
+            try{
             await querySnapshot.docs[0].ref.set({
                 username: req.body.username,
               }, 
               { merge: true });
+            }catch(err){console.log(err);}
         }
+        console.log("added username" + req.body.username)
         res.status(200).json({message: "added username" + req.body.username});
         
     }
