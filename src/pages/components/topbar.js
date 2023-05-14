@@ -62,6 +62,7 @@ export default function Topbar({session, showAlert}){
     route.get("/userdata")
     .then((res)=>{
         const users = res.data.users.slice();
+        setFocusElement(null);
         if(users.find((user) => user.username && user.username == newUsername)) showAlert("Username already exists.");
         else{
           route.post("/userdata",{...session.data.user, username: newUsername})
