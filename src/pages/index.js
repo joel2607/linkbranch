@@ -2,7 +2,6 @@ import Head from 'next/head'
 
 import {useSession } from 'next-auth/react';
 
-import Userform from './components/UserForm';
 import Topbar from './components/Topbar';
 import MainPageBody from './components/MainPageBody';
 import { useState, useEffect } from 'react';
@@ -50,15 +49,13 @@ export default function Home() {
         _currentUser = users.find((user) => user.email == session.data.user.email);
         // Get current user object by matching emails
 
-        console.log(_currentUser);
-
         if(_currentUser.username) return;
         // Check if current user object already has a username
         
         let randomUsername = generateUsername();
         while(users.find((user) => user.username && user.username == randomUsername)) randomUsername = generateUsername();
         // If username exists in database, generate new one
-        
+
         setCurrentUser({..._currentUser, username: randomUsername});
         // Hook it up with a username
     })
@@ -91,9 +88,10 @@ export default function Home() {
       
       
       
+      <Alert sx = {{display: alert?"flex":"none"}} variant = "outlined" severity = "info" onClose = {() => setAlert("")}>{alert}</Alert>
       <Card sx={{ position: "relative", display:(session.data)?"none":"flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", margin: "10px 10px 10px 10px", height: "88vh",}}>
         <CardContent sx = {{ position:"absolute"}}>
-          <Alert sx = {{display: alert?"flex":"none"}} variant = "outlined" severity = "info" >{alert}</Alert>
+          
 
           <AccountTreeRoundedIcon sx = {{height: "100%", width: "100%"}}/>
           <Typography variant = "h6" sx={{fontWeight:"normal"}}>

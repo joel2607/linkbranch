@@ -57,6 +57,20 @@ export default function Topbar({session, showAlert}){
   const [username, setUsername] = useState("");
 
   function editUsername(newUsername){
+    if(!session.data) return;
+
+    route.get("/userdata")
+    .then((res)=>{
+        const users = res.data.users.slice();
+        if(users.find((user) => user.username && user.username == newUsername)) showAlert("Username already exists.");
+        else{
+          route.post("/userdata",{...session.data.user, username: newUsername})
+          .then().catch((err) => console.log(err));
+          showAlert("Username Edited");
+        }
+      })
+    .catch((err)=> console.log(err));
+
     
   }
 
