@@ -1,21 +1,63 @@
 import { signIn, signOut} from 'next-auth/react';
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import Avatar from '@mui/material/Avatar';
-import { Tooltip } from '@mui/material';
-
-export default function Topbar({session, username}){
-
-  function handleSignIn(username){
+import EditIcon from '@mui/icons-material/Edit';
+import { AppBar, Tooltip, Toolbar, Typography, TextField, Button, Box, Menu, Avatar, IconButton, MenuItem, Divider, InputAdornment} from '@mui/material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 
-    signIn('google');
+const route = axios.create({
+  baseURL: "http://localhost:3000/api"
+});
+
+
+
+
+
+
+//   try {
+//     const myres = await signIn('google');
+//     console.log(myres);
+//   }catch(err){
+//     console.log(err);
+//   }
+
+// function isValidPath(path) {
+//   const pattern = /^\/*[a-zA-Z0-9_-]+$/i;
+//   return pattern.test(path);
+// }
+//   try {
+//     const res = await route.get("/userdata");
+//     var users = res.data.users.slice();
+//   }catch(err){
+//     console.log(err);
+//   }
+  
+//   if(!isValidPath(username)){
+//     showAlert("Enter valid username before signing in");
+//     return;
+//   }
+
+//   username = username.replace(/\//g, '').toLowerCase(); // replacing all '/'and converting username to lower case
+  
+//   if(users.filter((user) => user.username == username) === []){
+//     showAlert("Username already taken");
+//     return;
+//   }
+  
+//   console.log(session.data);
+
+
+
+export default function Topbar({session, showAlert}){
+
+  const [focusElement, setFocusElement] = useState(null);
+  const [username, setUsername] = useState("");
+
+  function editUsername(newUsername){
+    
   }
 
     return (
@@ -36,23 +78,57 @@ export default function Topbar({session, username}){
             LinkBranch
           </Typography>
 
-          <Tooltip text = {(session.data)?session.data.user.name:""}>
-            <Avatar 
-              src = {(session.data)?session.data.user.image:""} 
-              sx={{
-              display: session.data?"block":"none",
-              mr: 2
-              }}
-              alt='User Profile Picture'></Avatar>
-          
-          </Tooltip>
+          <Avatar 
+            src = {(session.data)?session.data.user.image:""} 
+            sx={{
+            display: session.data?"block":"none",
+            mr: 2
+            }}
+            alt='User Profile Picture'
+            onClick = {(event) => setFocusElement(event.currentTarget)}
+            ></Avatar>
+
+          <Menu
+            anchorEl={focusElement}
+            open={Boolean(focusElement)}
+            onClose={()=>setFocusElement(null)}
+            sx = {{
+              mt: "1.5vh",
+              display: "flex",
+              alignItems: "center"
+            }}
+            
+          >
+            <MenuItem >
+              <Typography variant = "body1" sx={{fontWeight:"normal"}}>
+                {session.data && session.data.user.name || ""}
+              </Typography>
+            </MenuItem>
+            <MenuItem >
+              <Typography variant = "body2" sx={{fontWeight:"normal"}}>
+                {session.data && session.data.user.email || ""}
+              </Typography>
+            </MenuItem>
+            <Divider/>
+            <MenuItem >
+              <TextField label="Edit your username" value={username} size='small' variant='standard'
+                onChange={(event) => {
+                  setUsername(event.target.value);
+                }}
+              />
+              <IconButton onClick={()=>editUsername(username)}>
+                <EditIcon/>
+              </IconButton>
+            </MenuItem>
+            
+          </Menu>
+
           <Button onClick={() => signOut()} sx = {{display: session.data?"block":"none"}}>Sign out</Button>
 
-          <Button color="inherit" onClick={() => handleSignIn()} sx = {{display: (!session.data)?"block":"none"}} >Login </Button>
+          <Button color="inherit" onClick={() => signIn('google')} sx = {{display: (!session.data)?"block":"none"}} >Login </Button>
         </Toolbar>
       </AppBar>
     </Box>
 
     );
-  // }
 }
