@@ -9,35 +9,22 @@ import { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert'
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded';
-import axios from 'axios';
 
-const crypto = require('crypto');
+import axios from 'axios';
+import { generateUsername } from '../../lib/helpers';
 
 const route = axios.create({
   baseURL: "http://localhost:3000/api"
 });
-
-function generateUsername() {
-  const bytes = crypto.randomBytes(6);
-  const username = bytes.toString('base64')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-  return username;
-}
-
-
 
 export default function Home() {
 
   const session = useSession();
   const [currentUser, setCurrentUser] = useState();
 
-  // initializing first sign-in with a random username
+  // Initializing first sign-in with a random username
   useEffect(() => {
     if(!session.data) return;
 
@@ -60,9 +47,6 @@ export default function Home() {
         // Hook it up with a username
     })
     .catch((err)=> console.log(err));
-
-    
-
   }, [session])
 
   useEffect(() => {
@@ -85,19 +69,14 @@ export default function Home() {
       </Head>
 
       <Topbar session={session} showAlert = {setAlert}></Topbar>
-      
-      
-      
+
       <Alert sx = {{display: alert?"flex":"none"}} variant = "outlined" severity = "info" onClose = {() => setAlert("")}>{alert}</Alert>
       <Card sx={{ position: "relative", display:(session.data)?"none":"flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", margin: "10px 10px 10px 10px", height: "88vh",}}>
         <CardContent sx = {{ position:"absolute"}}>
-          
-
           <AccountTreeRoundedIcon sx = {{height: "100%", width: "100%"}}/>
           <Typography variant = "h6" sx={{fontWeight:"normal"}}>
             Log in to claim your own domain
           </Typography>
-
         </CardContent>
       </Card>
 
